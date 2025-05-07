@@ -31,7 +31,7 @@ internal class UserConsumerWorker(
         var operation = headers.GetUserEventType();
         using var scope = serviceProvider.CreateScope();
 
-        if (operation is UserOperations.FirstSignIn)
+        if (operation is UserOperations.FIRST_SIGNIN)
         {
             var userDto = JsonSerializer.Deserialize<UserSignInUriDto>(message) ?? throw new InvalidBodyException();
             logger.LogInformation("Processing User Welcome request");
@@ -43,7 +43,7 @@ internal class UserConsumerWorker(
             await activateEmailUseCase.SendAsync(activateEmailDto, userDto.Email);*/
             channel.BasicAck(eventArgs.DeliveryTag, false);
         }
-        if (operation is UserOperations.ExistsOnOtherProvider)
+        if (operation is UserOperations.EXISTS_ON_OTHER_PROVIDER)
         {
             var userDto = JsonSerializer.Deserialize<UserOnOtherProvider>(message) ?? throw new InvalidBodyException();
             logger.LogInformation("Processing User on other provider");
@@ -52,7 +52,7 @@ internal class UserConsumerWorker(
             await userOnOtherProviderUseCase.SendAsync(userOnOtherProviderDto, userDto.Email);
             channel.BasicAck(eventArgs.DeliveryTag, false);
         }
-        if (operation is UserOperations.TransferUser)
+        if (operation is UserOperations.TRANSFER_USER)
         {
             var userTransferDto = JsonSerializer.Deserialize<UserTransferCompleteDto>(message) ?? throw new InvalidBodyException();
             logger.LogInformation("Processing User on other provider");

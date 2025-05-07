@@ -2,7 +2,7 @@
 
 public enum UserOperations
 {
-    FirstSignIn,
-    ExistsOnOtherProvider,
-    TransferUser
+    FIRST_SIGNIN,
+    EXISTS_ON_OTHER_PROVIDER,
+    TRANSFER_USER
 }
