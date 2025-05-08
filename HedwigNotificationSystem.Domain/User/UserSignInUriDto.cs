@@ -4,8 +4,6 @@ namespace HedwigNotificationSystem.Domain.User;
 
 public class UserSignInUriDto
 {
-    [JsonPropertyName("id")]
-    public Guid Id { get; set; }
     [JsonPropertyName("email")]
     public string Email { get; set; }
     [JsonPropertyName("passwordSetUri")]

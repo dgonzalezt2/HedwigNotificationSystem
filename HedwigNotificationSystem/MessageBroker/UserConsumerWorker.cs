@@ -38,9 +38,6 @@ internal class UserConsumerWorker(
             var welcomeEmailDto = new WelcomeEmailDto { passwordUrl = userDto.PasswordSetUri };
             var welcomeEmailUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<WelcomeEmailDto>>();
             await welcomeEmailUseCase.SendAsync(welcomeEmailDto, userDto.Email);
-            /*var activateEmailDto = new ActivateEmailDto { activateEmailUrl = userDto.VerificationEmailUri };
-            var activateEmailUseCase = scope.ServiceProvider.GetRequiredService<IEmailSender<ActivateEmailDto>>();
-            await activateEmailUseCase.SendAsync(activateEmailDto, userDto.Email);*/
             channel.BasicAck(eventArgs.DeliveryTag, false);
         }
         if (operation is UserOperations.EXISTS_ON_OTHER_PROVIDER)
